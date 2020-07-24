@@ -1,0 +1,30 @@
+MySQL 表
+
+文本、图片、音频、视频，都可以通过浏览器直接浏览
+
+存储图片信息，分 10张 表，按文件的长度求余
+
+image_0
+image_1
+image_2
+image_3
+image_4
+image_5
+image_6
+image_7
+image_8
+image_9
+
+audio
+
+video
+
+---- 华丽 ---- 分隔 ----
+
+file_showcase
+file_object
+
+---- 华丽 ---- 分隔 ----
+
+temp  取过期时间作为文件名
+

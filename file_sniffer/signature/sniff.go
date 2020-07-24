@@ -3,6 +3,7 @@ package signature
 import (
 	"bytes"
 	"net/http"
+	"oss-helper/enums"
 )
 
 // The algorithm uses at most sniffLen bytes to make its decision.
@@ -28,13 +29,15 @@ func isTT(b byte) bool {
 	return false
 }
 
+// https://docs.fileformat.com
+
 // SniffResult 识别结果
 type SniffResult struct {
-	// 某些签名对应多种文件格式，比如 zip,docx,xlsx，所以这里用数组~
-	Extensions []string
-	// 互联网媒体类型（Internet media type，也称为MIME类型（MIME type）或内容类型（content type））
-	// 是给互联网上传输的内容赋予的分类类型。
-	ContentType string
+	FileType    enums.FileType // 文件类型
+	UTI         string         // Uniform Type Identifier (UTI)
+	Signature   string         // 如果 UTI 的值是 com.microsoft.ico ，那么这个值则是 ico
+	Extensions  []string       // 某些标识对应多种文件格式，比如 zip,docx,xlsx，所以这里用数组~
+	ContentType string         // 互联网媒体类型（Internet media type，也称为MIME类型（MIME type）或内容类型（content type））
 }
 
 var voidSniffResult SniffResult = SniffResult{}
