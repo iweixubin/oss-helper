@@ -12,6 +12,7 @@ import (
 
 // FileSign 文件特征
 type FileSign struct {
+	Content     []byte   // 文件内容
 	Length      int64    // 文件长度
 	Tail        int64    // 取文件最后 8个byte 转成一个 int64 作为尾部值
 	MD5         string   // 文件的 MD5 哈希值
@@ -27,6 +28,7 @@ func Check(file []byte, fileName string) (FileSign, error) {
 	xx := signature.Sniff(file)
 
 	fs := FileSign{}
+	fs.Content = file
 	// os.Stat().FileInfo.Size() 返回的是 int64，不知道为什么不用 uint64
 	fs.Length = int64(len(file))
 	fs.Tail = getTail(file)

@@ -26,5 +26,21 @@ file_object
 
 ---- 华丽 ---- 分隔 ----
 
-temp  取过期时间作为文件名
+表还是一张 temp 表
 
+temp  取过期时间作为文件名
+temp/x01/文件名
+temp/x02
+temp/x03
+temp/x04
+temp/x05
+temp/x06
+temp/x07
+temp/x08
+temp/x09
+temp/x10
+temp/x11
+temp/x12
+temp/过期时间的分钟 % 12 +1
+
+Expiration
