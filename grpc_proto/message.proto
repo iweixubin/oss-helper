@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package contract;
+option csharp_namespace = "GrpcClient.GrpcContract";
+
+message UploadRequest{
+    bool IsTemp = 1;
+    string Expired =2;
+    string FileName = 3;
+    bytes FileBytes = 4;
+}
+
+message UploadResponse{
+    string BucketName=1;
+    string ObjectName=2;
+}
+
+service Storage {
+    rpc Upload (UploadRequest) returns (UploadResponse);
+}
+
+/*
+protoc --go_out=plugins=grpc,mode=server:. mode/echo.proto
+protoc --go_out=plugins=grpc,mode=client:. mode/echo.proto
+cmd for go:
+  protoc --go_out=plugins=grpc,mode=client:./grpc_service ./grpc_proto/message.proto
+
+cmd for C#:
+  protoc  --csharp_out=F:/Demo/GrpcDemo/GrpcClient/GrpcContract ./grpc_proto/message.proto --grpc_out=F:/Demo/GrpcDemo/GrpcClient/GrpcContract --plugin=protoc-gen-grpc=d:/cmd/grpc_csharp_plugin.exe --grpc_opt=no_server
+*/

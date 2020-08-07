@@ -1,0 +1,15 @@
+# 本服务运行时监听的地址
+Host: "127.0.0.1:9090"
+
+MinIO:
+  EndPoint: "127.0.0.1:9000"
+  AccessKeyID: "minioadmin"
+  SecretAccessKey: "minioadmin"
+  UseSSL: false
+
+Database:
+  Driver: "mysql"
+  Source: "root:123456@tcp(192.168.86.101:3306)/storage_service?charset=ascii&parseTime=False&loc=Local&multiStatements=true"
+  MaxOpen: 10
+  MaxIdle: 2
+  MaxLifetime: 90

@@ -3,10 +3,12 @@ package commons
 import (
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 )
 
-//var wgOnExit sync.WaitGroup
+var wgOnExit sync.WaitGroup
+var flag bool
 
 // OnExit 在程序退出的时候做一些处理工作~
 func OnExit(do func()) {
@@ -19,17 +21,20 @@ func OnExit(do func()) {
 			// 只选这几个的原因是因为 kingshard 也只是选这几个~
 			// https://github.com/flike/kingshard/blob/master/cmd/kingshard/main.go
 			if sig == syscall.SIGINT || sig == syscall.SIGTERM || sig == syscall.SIGQUIT {
-				//wgOnExit.Add(1)
+				wgOnExit.Add(1)
 				do()
-				//wgOnExit.Done()
+				wgOnExit.Done()
 			}
 		}
 	}()
 
-	//go func(){
-	//	wgOnExit.Wait()
-	//	os.Exit()
-	//}
+	if !flag {
+		flag = true
+		go func() {
+			wgOnExit.Wait()
+			os.Exit(0)
+		}()
+	}
 
 	// https://books.studygolang.com/The-Golang-Standard-Library-by-Example/chapter16/16.03.html
 	//SIGBUS（总线错误）, SIGFPE（算术错误）和 SIGSEGV（段错误）称为同步信号，

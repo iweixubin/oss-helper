@@ -84,6 +84,25 @@ func Test_MinIo_FPutObject(t *testing.T) {
 
 }
 
+func Test_MinIo_FPutObject_Gif(t *testing.T) {
+	filePath := `F:\Docs\oss-helper\file_sniffer\samples\120px-SmallFullColourGIF.gif`
+	filename := genFilename("gif")
+	objectName := "x03/" + filename
+
+	contentType := "image/gif"
+
+	info, err := getMinIoClient().FPutObject(context.Background(), "img", objectName, filePath, minio.PutObjectOptions{
+		ContentType: contentType,
+	})
+
+	if err != nil {
+		t.Error(err)
+	} else {
+		fmt.Printf("%+v", info)
+	}
+
+}
+
 func Test_genFilename(t *testing.T) {
 	println(genFilename(".png"))
 }
